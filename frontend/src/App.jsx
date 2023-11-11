@@ -1,36 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import Filter from "./components/Filter";
+import todooService from "./services/todooService";
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      title: "Learn about React",
-      description: "blablabla",
-      isCompleted: false,
-      category: "learn",
-    },
-    {
-      title: "Meet friend for lunch",
-      description: "blablabla",
-      isCompleted: false,
-      category: "learn",
-    },
-    {
-      title: "Build really cool todo app",
-      description: "blablabla",
-      isCompleted: false,
-      category: "learn",
-    },
-  ]);
+  const [todos, setTodos] = useState([]);
   const [isAdding, setIsAdding] = useState(false);
   const [filter, setFilter] = useState("");
+  useEffect(() => {
+    todooService.getAll().then((initialTodos) => {
+      setTodos(initialTodos);
+    });
+  }, []);
+
   const addTodo = ({ title, category, description }) => {
-    const newTodos = todos.concat({ title, category, description });
-    setTodos(newTodos);
+    const newTodoo = { title, category, isCompleted: "false", description };
+    todooService.create(newTodoo).then((returnedTodoo) => {
+      const newTodos = todos.concat({ title, category, description });
+      setTodos(newTodos);
+    });
   };
 
   const completeTodo = (index) => {

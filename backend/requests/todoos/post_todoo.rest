@@ -1,0 +1,9 @@
+POST http://localhost:3000/api/todoo
+Content-Type: application/json
+
+{
+    "title": "GANAR",
+    "description": "por el agustin por fati",
+    "isCompleted": "false",
+    "category": "VIDA O MUERTE"
+}
