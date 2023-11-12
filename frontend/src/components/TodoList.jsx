@@ -1,18 +1,22 @@
 import Todo from "./Todo";
-const TodoList = ({ todos, completeTodo, removeTodo, editTodo }) => {
+import { Accordion, Center, Card } from "@chakra-ui/react";
+const TodoList = ({ todos, completeTodo, removeTodo, edit }) => {
   return (
-    <div className="todo-list">
-      {todos.map((todo, index) => (
-        <Todo
-          key={index}
-          index={index}
-          todo={todo}
-          completeTodo={completeTodo}
-          removeTodo={removeTodo}
-          editTodo={editTodo}
-        />
-      ))}
-    </div>
+    <Center>
+      <Card>
+        <Accordion w="lg">
+          {todos.map((todo, index) => (
+            <Todo
+              key={index}
+              todo={todo}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+              edit={edit}
+            />
+          ))}
+        </Accordion>
+      </Card>
+    </Center>
   );
 };
 export default TodoList;

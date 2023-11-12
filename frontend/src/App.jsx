@@ -4,11 +4,18 @@ import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import Filter from "./components/Filter";
 import todooService from "./services/todooService";
-
+import Title from "./components/Title";
+import { ChakraProvider } from "@chakra-ui/react";
 function App() {
   const [todos, setTodos] = useState([]);
-  const [isAdding, setIsAdding] = useState(false);
   const [filter, setFilter] = useState("");
+  const [editId, setEditId] = useState(null);
+  const [Formvalue, setFormValue] = useState({
+    title: "",
+    description: "",
+    category: "",
+  });
+
   useEffect(() => {
     todooService.getAll().then((initialTodos) => {
       setTodos(initialTodos);
@@ -16,7 +23,6 @@ function App() {
   }, []);
 
   const addTodo = (value) => {
-    console.log(value);
     const newTodoo = {
       title: value.title,
       description: value.description,
@@ -29,57 +35,77 @@ function App() {
     });
   };
 
-  const completeTodo = (index) => {
+  const completeTodo = (id) => {
+    const todoo = todos.find((todo) => todo.id === id);
     todooService
-      .change(todos[index].id, {
-        isCompleted: !todos[index].isCompleted,
+      .change(id, {
+        isCompleted: !todoo.isCompleted,
       })
       .then((returnedTodoo) => {
         const newTodos = [...todos];
-        newTodos[index] = returnedTodoo;
+        newTodos.map((todo) => {
+          if (todo.id === id) {
+            todo.isCompleted = !todo.isCompleted;
+          }
+        });
         setTodos(newTodos);
       });
   };
 
-  const removeTodo = (index) => {
-    todooService.remove(todos[index].id).then((returnedTodoo) => {
-      const newTodos = [...todos];
-      newTodos.splice(index, 1);
+  const removeTodo = (id) => {
+    todooService.remove(id).then((returnedTodoo) => {
+      const newTodos = todos.filter((todo) => todo.id !== id);
       setTodos(newTodos);
     });
   };
 
-  const editTodo = (index, value) => {
-    todooService.update(todos[index].id, value).then((returnedTodoo) => {
+  const editTodo = (id, value) => {
+    todooService.update(id, value).then((returnedTodoo) => {
       const newTodos = [...todos];
-      newTodos[index] = returnedTodoo;
-      setTodos(newTodos);
+      const updatedTodos = newTodos.map((todo) => {
+        if (todo.id === id) {
+          return returnedTodoo;
+        }
+        return todo;
+      });
+      setTodos(updatedTodos);
     });
   };
 
   let filteredTodos = todos.filter((todo) =>
     todo.category.toLowerCase().startsWith(filter.toLowerCase())
   );
+
+  const edit = (id) => {
+    const todoo = todos.find((todo) => todo.id === id);
+    setFormValue({
+      title: todoo.title,
+      description: todoo.description,
+      category: todoo.category,
+    });
+    setEditId(todoo.id);
+  };
+
+  const action = (value) => {
+    if (editId === null) {
+      addTodo(value);
+    } else {
+      editTodo(editId, value);
+      setEditId(null);
+    }
+  };
   return (
-    <div className="app">
-      <h1>TODO APP</h1>
-      <Filter setFilter={setFilter} />
+    <ChakraProvider>
+      <Title />
+      <TodoForm value={Formvalue} setValue={setFormValue} action={action} />
       <TodoList
         todos={filteredTodos}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
-        editTodo={editTodo}
+        edit={edit}
       />
-      {!isAdding ? (
-        <button onClick={() => setIsAdding(!isAdding)}>Add</button>
-      ) : (
-        <TodoForm
-          action={addTodo}
-          type={"add"}
-          cancel={() => setIsAdding(!isAdding)}
-        />
-      )}
-    </div>
+      <Filter setFilter={setFilter} category={filter} />
+    </ChakraProvider>
   );
 }
 
