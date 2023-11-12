@@ -1,9 +1,9 @@
-PUT http://localhost:3000/api/todoo/0
+PUT http://localhost:3000/api/todoo/1
 Content-Type: application/json
 
 {
     "title": "GANAR",
     "description": "por el agustin por fati DALE PEDASO DE CULIADO VOS SIEMPRE GANAS",
-    "isCompleted": "false",
+    "isCompleted": false,
     "category": "VIDA O MUERTE"
 }

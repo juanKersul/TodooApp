@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import "./App.css";
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import Filter from "./components/Filter";
@@ -16,30 +15,48 @@ function App() {
     });
   }, []);
 
-  const addTodo = ({ title, category, description }) => {
-    const newTodoo = { title, category, isCompleted: "false", description };
+  const addTodo = (value) => {
+    console.log(value);
+    const newTodoo = {
+      title: value.title,
+      description: value.description,
+      isCompleted: false,
+      category: value.category,
+    };
     todooService.create(newTodoo).then((returnedTodoo) => {
-      const newTodos = todos.concat({ title, category, description });
+      const newTodos = todos.concat(returnedTodoo);
       setTodos(newTodos);
     });
   };
 
   const completeTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos[index].isCompleted = !newTodos[index].isCompleted;
-    setTodos(newTodos);
+    todooService
+      .change(todos[index].id, {
+        isCompleted: !todos[index].isCompleted,
+      })
+      .then((returnedTodoo) => {
+        const newTodos = [...todos];
+        newTodos[index] = returnedTodoo;
+        setTodos(newTodos);
+      });
   };
 
   const removeTodo = (index) => {
-    const newTodos = [...todos];
-    newTodos.splice(index, 1);
-    setTodos(newTodos);
+    todooService.remove(todos[index].id).then((returnedTodoo) => {
+      const newTodos = [...todos];
+      newTodos.splice(index, 1);
+      setTodos(newTodos);
+    });
   };
+
   const editTodo = (index, value) => {
-    const newTodos = [...todos];
-    newTodos[index] = value;
-    setTodos(newTodos);
+    todooService.update(todos[index].id, value).then((returnedTodoo) => {
+      const newTodos = [...todos];
+      newTodos[index] = returnedTodoo;
+      setTodos(newTodos);
+    });
   };
+
   let filteredTodos = todos.filter((todo) =>
     todo.category.toLowerCase().startsWith(filter.toLowerCase())
   );

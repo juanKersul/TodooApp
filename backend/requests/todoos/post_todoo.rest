@@ -4,6 +4,6 @@ Content-Type: application/json
 {
     "title": "GANAR",
     "description": "por el agustin por fati",
-    "isCompleted": "false",
+    "isCompleted": false,
     "category": "VIDA O MUERTE"
 }
