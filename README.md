@@ -1,4 +1,4 @@
-# Awesome Fullstack App
+# Todoo Fullstack App
 
 Welcome to Todoo fullstack application! This application consists of a frontend built with [React] and a backend powered by [Express]. Follow the steps below to get the app up and running.
 
