@@ -49,17 +49,23 @@ Make sure you have the following installed on your machine:
    npm install
    ```
 
-7. Start the database:
+7. build the UI:
+
+   ```bash
+   npm run build:ui
+   ```
+
+8. Start the database:
 
    ```bash
    npm run db
    ```
 
-8. Start the backend in a new terminal window:
+9. Start the backend in a new terminal window:
 
    ```bash
 
     npm run start
     ```
 
-9. open the navegador and navigate to <http://localhost:3000>
+10. open the navegador and navigate to <http://localhost:3000>

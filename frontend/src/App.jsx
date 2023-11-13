@@ -5,7 +5,7 @@ import TodoList from "./components/TodoList";
 import Filter from "./components/Filter";
 import todooService from "./services/todooService";
 import Title from "./components/Title";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, Box } from "@chakra-ui/react";
 function App() {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState("");
@@ -96,15 +96,17 @@ function App() {
   };
   return (
     <ChakraProvider>
-      <Title />
-      <TodoForm value={Formvalue} setValue={setFormValue} action={action} />
-      <TodoList
-        todos={filteredTodos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        edit={edit}
-      />
-      <Filter setFilter={setFilter} category={filter} />
+      <Box  bgGradient='linear(orange.100 25%, yellow.100 50%)' h='100vh' display='flex' flexDirection='column' justifyContent='center'>
+        <Title />
+        <TodoForm value={Formvalue} setValue={setFormValue} action={action} />
+        <TodoList
+          todos={filteredTodos}
+          completeTodo={completeTodo}
+          removeTodo={removeTodo}
+          edit={edit}
+        />
+        <Filter setFilter={setFilter} category={filter} />
+      </Box>
     </ChakraProvider>
   );
 }

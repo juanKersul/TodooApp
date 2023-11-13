@@ -14,14 +14,16 @@ function TodoForm({ value, setValue, action }) {
     setValue({ title: "", description: "", category: "" });
   };
   return (
-    <Center>
-      <Card w="lg">
+    <Center mt="10px">
+      <Card w="lg" bg="#FFFAF0">
         <Center>
           <CardHeader
+            bg="#EDF2F7"
             w="md"
             border="1px"
             borderStyle="groove"
             borderRadius="6px"
+            mt="10px"
           >
             <Center>
               <Heading size="md">Add or edit tasks</Heading>
@@ -56,7 +58,7 @@ function TodoForm({ value, setValue, action }) {
             }
           />
         </CardBody>
-        <Button onClick={handleSubmit}>OK</Button>
+        <Button variant='outline' bg="#EDF2F7" onClick={handleSubmit}>OK</Button>
       </Card>
     </Center>
   );

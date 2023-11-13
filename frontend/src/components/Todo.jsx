@@ -15,8 +15,8 @@ import {
 function Todo({ todo, completeTodo, removeTodo, edit }) {
   const buttonText = todo.isCompleted ? "unmark" : "mark";
   return (
-    <AccordionItem>
-      <AccordionButton>
+    <AccordionItem >
+      <AccordionButton bg='#EDF2F7'>
         <Heading
           size="md"
           style={{ textDecoration: todo.isCompleted ? "line-through" : "" }}
@@ -26,15 +26,15 @@ function Todo({ todo, completeTodo, removeTodo, edit }) {
         <Tag ml="auto">{todo.category}</Tag>
         <AccordionIcon />
       </AccordionButton>
-      <AccordionPanel pb={4}>
-        <Card>
+      <AccordionPanel pb={4} bg='#FFFAF0'>
+        <Card bg='#EDF2F7'>
           <CardBody>
             <Text>{todo.description}</Text>
           </CardBody>
           <CardFooter>
-            <Button onClick={() => completeTodo(todo.id)}>{buttonText}</Button>
-            <Button onClick={() => removeTodo(todo.id)}>Delete</Button>
-            <Button onClick={() => edit(todo.id)}>Edit</Button>
+            <Button variant='outline' onClick={() => completeTodo(todo.id)}>{buttonText}</Button>
+            <Button variant='outline' onClick={() => removeTodo(todo.id)}>Delete</Button>
+            <Button variant='outline' onClick={() => edit(todo.id)}>Edit</Button>
           </CardFooter>
         </Card>
       </AccordionPanel>

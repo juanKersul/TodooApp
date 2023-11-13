@@ -1,8 +1,8 @@
 import { Input, Center, Card, CardBody } from "@chakra-ui/react";
 const Filter = ({ setFilter }) => {
   return (
-    <Center>
-      <Card w="lg">
+    <Center >
+      <Card w="lg" bg='#FFFAF0'>
         <CardBody>
           <Input
             name="filter"
