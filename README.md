@@ -71,3 +71,6 @@ Make sure you have the following installed on your machine:
 
 10. open the navegador and navigate to <http://localhost:3000>
 
+## Notes
+
+you can see the versions using the tags in the repository
