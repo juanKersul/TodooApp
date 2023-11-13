@@ -1,9 +1,6 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
-const config = require("../utils/config");
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("./db");
 const logger = require("../utils/logger");
-const sequelize = new Sequelize(config.DATABASE_URI, {
-  dialect: "postgres",
-});
 
 class Todoo extends Model {}
 Todoo.init(
@@ -30,6 +27,10 @@ Todoo.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     sequelize,
@@ -37,7 +38,4 @@ Todoo.init(
     timestamps: false,
   }
 );
-Todoo.sync({ force: true, logging: false }).then(() => {
-  logger.info("Todoo table created");
-});
 module.exports = Todoo;

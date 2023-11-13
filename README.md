@@ -41,6 +41,7 @@ Make sure you have the following installed on your machine:
    ```bash
    PORT=3000
    DATABASE_URI=postgres://postgres:admin@localhost:5432/postgres
+   SECRET_KEY=secret
    ```
 
 6. install dependencies:
@@ -55,7 +56,7 @@ Make sure you have the following installed on your machine:
    npm run build:ui
    ```
 
-8. Start the database:
+8. Start the database (It may take a few seconds):
 
    ```bash
    npm run db
@@ -69,3 +70,4 @@ Make sure you have the following installed on your machine:
     ```
 
 10. open the navegador and navigate to <http://localhost:3000>
+
