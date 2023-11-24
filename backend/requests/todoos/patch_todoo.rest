@@ -1,6 +1,0 @@
-PATCH http://localhost:3000/api/todoo/1
-Content-Type: application/json
-
-{
-    "isCompleted": true
-}
